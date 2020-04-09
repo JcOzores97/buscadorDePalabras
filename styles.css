@@ -1,0 +1,74 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Mukta', sans-serif;
+}
+body {
+	background-color: #f7f8f9;
+	min-height: 100vh;
+	display: grid;
+	grid-template-rows: 10vh 10vh 64vh 10vh 6vh;
+}
+header,
+footer {
+	background-color: #ffffff;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: gray 0px 0px 5px 0px;
+}
+header {
+	color: white;
+	background-color: #142433;
+}
+main {
+	grid-row: 3;
+	box-shadow: gray 0px 0px 5px 0px;
+	background-color: #ffffff;
+	display: grid;
+	grid-template-columns: 50% 50%;
+	justify-items: center;
+}
+footer {
+	grid-row: 5;
+}
+form {
+	font-size: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	width: 80%;
+}
+#submit-button {
+	font-size: 16px;
+	padding-left: 8px;
+	padding-right: 8px;
+	background-color: #2f8c9c;
+	color: white;
+	border: none;
+	width: max-content;
+	border-radius: 4px;
+}
+input {
+	width: 150px;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+#results-container {
+	width: 80%;
+}
+
+.coincidences {
+	text-align: center;
+	text-transform: capitalize;
+	margin-top: 5px;
+}
+.song {
+	margin-top: 5px;
+	overflow-y: scroll;
+	height: 55vh;
+}

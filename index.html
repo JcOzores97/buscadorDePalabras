@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Mukta&display=swap" rel="stylesheet"> 
+    <title>Word searching</title>
+</head>
+<body>
+    <header><h1>Buscador de palabras</h1></header>
+    <main>
+        <form id="form" action="#">
+            <label for="artist-input">Selecciona un artista</label>
+            <input type="text" id="artist-input" required>
+            <label for="song-input">Selecciona una canción</label>
+            <input type="text" id="song-input" required>
+            <label for="word-input">Palabra a buscar:</label>
+            <input type="text" id="word-input" required>
+            <input type="submit" id="submit-button" value="Buscar Palabra">
+        </form>
+
+        <div id="results-container">
+                <!-- Acá van los resultados luego de la consulta -->
+        </div>
+    </main>
+    <footer>
+        <h4>Desarrollado por <a href="https://github.com/JcOzores97">JcOzores97</a></h4>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
