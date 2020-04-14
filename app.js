@@ -8,10 +8,9 @@ const resultsContainer = document.getElementById('results-container');
 //objetos
 
 const songAnalizer = {
-	countWord(word, strToAnalize) {
+	countWord(strToAnalize, regExp) {
 		//retorna la cantidad de coincidencias
-		let pattern = new RegExp(word, 'gi');
-		let matches = strToAnalize.match(pattern);
+		let matches = strToAnalize.match(regExp);
 		if (matches == null) {
 			return 0;
 		} else {
@@ -27,17 +26,27 @@ const UI = {
 		if (result.name == 'Error') {
 			div.textContent = result;
 		} else {
-			div.textContent = `${artist} utiliza la palabra "${word}"  ${result} veces en ${song}`;
+			div.innerHTML = `<strong>${artist} utiliza la palabra "${word}"  ${result} veces en ${song}</strong>`;
 		}
 		resultsContainer.appendChild(div);
 	},
 	clearResultsSection() {
 		resultsContainer.innerHTML = '';
 	},
-	showSong(lyrics) {
+	showSong(lyrics, word, regExp) {
 		let p = document.createElement('p');
 		p.className = 'song';
-		p.textContent = lyrics;
+
+		//resaltado de las coincidencias en la letra de la canción
+		lyrics = lyrics.replace(regExp, ` <span class="match-word">${word}</span>`);
+		lyrics = lyrics.replace(/\n/g, '<br>');
+		lyrics = lyrics.replace(
+			/\r/g,
+			`
+		`
+		);
+		p.innerHTML = lyrics;
+
 		resultsContainer.appendChild(p);
 	}
 };
@@ -47,10 +56,14 @@ form.addEventListener('submit', (ev) => {
 	UI.clearResultsSection();
 	ev.preventDefault();
 
-	//enviar una petición según las características que se completaron en el formulario
+	//valores del formulario
 	let artist = artistInput.value;
 	let song = songInput.value;
-	let wordToSearch = wordInput.value;
+	let wordToSearch = `${wordInput.value}`;
+
+	//regExp
+	let regExp = new RegExp(`\\s${wordToSearch}(?=,|!|\\s|\\?|")`, 'gi');
+	//url
 	let url = `https://api.lyrics.ovh/v1/${artist.replace(' ', '-')}/${song.replace(' ', '-')}`;
 	form.reset();
 
@@ -59,7 +72,7 @@ form.addEventListener('submit', (ev) => {
 		'No se encontraron resultados para su búsqueda, verifique si rellenó correctamente todos los campos'
 	);
 
-	//petición de datos y manipulación de los mismos
+	//petición de datos segun valores del form y manipulación de los mismos
 	fetch(url)
 		.then((response) => {
 			if (response.status == 404) {
@@ -69,9 +82,9 @@ form.addEventListener('submit', (ev) => {
 			}
 		})
 		.then((jsonData) => {
-			let result = songAnalizer.countWord(wordToSearch, jsonData.lyrics);
+			let result = songAnalizer.countWord(jsonData.lyrics, regExp);
 			UI.updateResults(result, artist, song, wordToSearch);
-			UI.showSong(jsonData.lyrics);
+			UI.showSong(jsonData.lyrics, wordToSearch, regExp);
 		})
 		.catch((err) => {
 			if (err == notFoundError) {

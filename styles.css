@@ -8,7 +8,7 @@ body {
 	background-color: #f7f8f9;
 	min-height: 100vh;
 	display: grid;
-	grid-template-rows: 10vh 10vh 64vh 10vh 6vh;
+	grid-template-rows: 10vh 9vh 64vh 9vh 8vh;
 }
 header,
 footer {
@@ -23,6 +23,18 @@ header {
 	color: white;
 	background-color: #142433;
 }
+footer {
+	grid-row: 5;
+}
+#contact {
+	display: flex;
+	align-items: center;
+}
+#contact > a > img {
+	margin-top: 5px;
+	margin-left: 10px;
+	cursor: pointer;
+}
 main {
 	grid-row: 3;
 	box-shadow: gray 0px 0px 5px 0px;
@@ -31,9 +43,7 @@ main {
 	grid-template-columns: 50% 50%;
 	justify-items: center;
 }
-footer {
-	grid-row: 5;
-}
+
 form {
 	font-size: 20px;
 	display: flex;
@@ -51,6 +61,7 @@ form {
 	border: none;
 	width: max-content;
 	border-radius: 4px;
+	cursor: pointer;
 }
 input {
 	width: 150px;
@@ -61,14 +72,61 @@ input {
 #results-container {
 	width: 80%;
 }
+#temporary-msg {
+	margin-top: 20px;
+	text-align: center;
+}
 
 .coincidences {
 	text-align: center;
 	text-transform: capitalize;
-	margin-top: 5px;
+	margin-top: 20px;
 }
 .song {
 	margin-top: 5px;
 	overflow-y: scroll;
 	height: 55vh;
+}
+.match-word {
+	background-color: rgb(36, 192, 208);
+	border-radius: 2px;
+}
+
+@media (max-width: 400px) {
+	body {
+		grid-template-rows: 10vh 1fr 6vh;
+		grid-gap: 50px;
+	}
+	main {
+		grid-row: auto;
+		grid-template-rows: 64vh auto;
+		grid-template-columns: none;
+		grid-gap: 28px;
+		background-color: #f7f8f9;
+	}
+	header {
+		grid-row: auto;
+	}
+	form {
+		width: 100%;
+		background: white;
+		box-shadow: gray 0px 0px 5px 0px;
+	}
+	#results-container {
+		width: 100%;
+		background-color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		box-shadow: gray 0px 0px 5px 0px;
+	}
+	#temporary-msg {
+		margin-top: 10px;
+	}
+	.song {
+		width: 80%;
+	}
+	footer {
+		grid-row: auto;
+	}
 }
