@@ -4,6 +4,7 @@ const songInput = document.getElementById('song-input');
 const wordInput = document.getElementById('word-input');
 const form = document.getElementById('form');
 const resultsContainer = document.getElementById('results-container');
+const footerContact = document.getElementById('contact');
 
 //objetos
 
@@ -32,6 +33,9 @@ const UI = {
 	},
 	clearResultsSection() {
 		resultsContainer.innerHTML = '';
+		if (resultsContainer.classList.contains('results-container-filled')) {
+			resultsContainer.classList.remove('results-container-filled');
+		}
 	},
 	showSong(lyrics, word, regExp) {
 		let p = document.createElement('p');
@@ -48,11 +52,20 @@ const UI = {
 		p.innerHTML = lyrics;
 
 		resultsContainer.appendChild(p);
+	},
+	autoScroll() {
+		//scroll automático antes de que aparezcan los resultados en pantalla
+		resultsContainer.classList.add('results-container-filled');
+		resultsContainer.addEventListener('transitionend', () => {
+			footerContact.scrollIntoView(true);
+			document.getElementById('submit-button').textContent = 'Buscar';
+		});
 	}
 };
 
 //eventListeners
 form.addEventListener('submit', (ev) => {
+	document.getElementById('submit-button').textContent = 'Espere...';
 	UI.clearResultsSection();
 	ev.preventDefault();
 
@@ -90,5 +103,8 @@ form.addEventListener('submit', (ev) => {
 			if (err == notFoundError) {
 				UI.updateResults(err);
 			}
+		})
+		.finally(() => {
+			UI.autoScroll();
 		});
 });
