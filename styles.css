@@ -71,7 +71,6 @@ input {
 }
 .results-container {
 	max-height: 0px;
-	transition: max-height ease-in 1s;
 }
 .results-container-filled {
 	max-height: 85vh;
@@ -94,8 +93,11 @@ input {
 }
 
 @media (max-width: 430px) {
+	body {
+		grid-template-rows: minmax(60px, 10vh) minmax(400px, 1fr) minmax(40px, 6vh);
+	}
 	main {
-		grid-template-rows: 64vh auto;
+		grid-template-rows: minmax(400px, 64vh) auto;
 		grid-template-columns: none;
 		grid-gap: 28px;
 		background-color: #f7f8f9;
@@ -115,15 +117,15 @@ input {
 		box-shadow: gray 0px 0px 5px 0px;
 	}
 	.results-container {
-		max-height: 0px;
-		transition: max-height ease-in 1s;
+		min-height: 0px;
 	}
 	.results-container-filled {
-		max-height: 85vh;
+		min-height: max-content;
 	}
 
 	.song {
 		width: 80%;
+		min-height: 400px;
 		height: 70vh;
 	}
 }

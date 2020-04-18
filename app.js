@@ -54,12 +54,10 @@ const UI = {
 		resultsContainer.appendChild(p);
 	},
 	autoScroll() {
-		//scroll automático antes de que aparezcan los resultados en pantalla
+		//scroll automático luego de que aparezcan los resultados en pantalla
 		resultsContainer.classList.add('results-container-filled');
-		resultsContainer.addEventListener('transitionend', () => {
-			footerContact.scrollIntoView(true);
-			document.getElementById('submit-button').textContent = 'Buscar';
-		});
+		footerContact.scrollIntoView(true);
+		document.getElementById('submit-button').textContent = 'Buscar';
 	}
 };
 
